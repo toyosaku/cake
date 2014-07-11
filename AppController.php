@@ -44,10 +44,15 @@ class AppController extends Controller {
 	); 
 
 	public function isAuthorized($user) {
+		if ($this->action === 'index') {
+			$this->Session->setFlash(
+			$this->Auth->user('username').'がログイン中です。');
+			return true;
+		}
 		if (isset($user['role']) && $user['role'] === 'admin') {
 			$this->Session->setFlash(
 			$this->Auth->user('username').'がログイン中です。');
-		    return true;
+			    return true;
 		}
 		return false;
 	}
